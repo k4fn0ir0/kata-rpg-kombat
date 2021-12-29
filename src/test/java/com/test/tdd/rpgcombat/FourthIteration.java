@@ -12,7 +12,6 @@ import org.junit.Test;
 public class FourthIteration {
 	@Test
 	public void test1() {
-		Faction pirates = new Faction("Pirates");
 		Character mf = new RangedFighter(0, 0);
 		assertEquals(mf.getFactions(), new ArrayList<Faction>());
 	}
@@ -21,10 +20,10 @@ public class FourthIteration {
 	public void test2() {
 		Faction pirates = new Faction("Pirates");
 		Faction aboriginal = new Faction("Aboriginal");
-		
+
 		Character mf = new RangedFighter(0, 0);
 		Character yasuo = new MeleeFighter(0, 0);
-		
+
 		mf.joinFaction(pirates);
 		mf.joinFaction(aboriginal);
 		assertTrue(pirates.getAllies().contains(mf));
@@ -32,25 +31,68 @@ public class FourthIteration {
 
 		yasuo.joinFaction(aboriginal);
 		assertTrue(aboriginal.getAllies().contains(yasuo));
-		
+
 		yasuo.leaveFaction(aboriginal);
 		assertFalse(aboriginal.getAllies().contains(yasuo));
-		
+
 	}
 
 	@Test
 	public void test3() {
-		fail();
+		Faction pirates = new Faction("Pirates");
+		Faction aboriginal = new Faction("Aboriginal");
+
+		Character mf = new RangedFighter(0, 0);
+		Character yasuo = new MeleeFighter(0, 0);
+
+		mf.joinFaction(pirates);
+		mf.joinFaction(aboriginal);
+		yasuo.joinFaction(aboriginal);
+		assertTrue(mf.isAnAlly(yasuo));
+		assertTrue(yasuo.isAnAlly(mf));
+
+		yasuo.leaveFaction(aboriginal);
+		assertFalse(mf.isAnAlly(yasuo));
 	}
 
 	@Test
 	public void test4() {
-		fail();
+		Faction pirates = new Faction("Pirates");
+		Faction aboriginal = new Faction("Aboriginal");
+
+		Character mf = new RangedFighter(0, 0);
+		Character yasuo = new MeleeFighter(0, 0);
+
+		mf.joinFaction(pirates);
+		mf.joinFaction(aboriginal);
+		yasuo.joinFaction(aboriginal);
+
+		mf.dealDamages(yasuo, 200);
+		assertEquals(1000, yasuo.getHealth(), 0);
+		
+		yasuo.leaveFaction(aboriginal);
+		mf.dealDamages(yasuo, 200);
+		assertEquals(800, yasuo.getHealth(), 0);
 	}
 
 	@Test
 	public void test5() {
-		fail();
+		Faction pirates = new Faction("Pirates");
+		Faction aboriginal = new Faction("Aboriginal");
+
+		Character mf = new RangedFighter(0, 0);
+		Character yasuo = new MeleeFighter(0, 0);
+
+		mf.joinFaction(pirates);
+		mf.joinFaction(aboriginal);
+
+		mf.dealDamages(yasuo, 200);
+		assertEquals(800, yasuo.getHealth(), 0);
+
+		yasuo.joinFaction(aboriginal);
+		mf.heal(yasuo, 200);
+		assertEquals(1000, yasuo.getHealth(), 0);
+
 	}
 
 }

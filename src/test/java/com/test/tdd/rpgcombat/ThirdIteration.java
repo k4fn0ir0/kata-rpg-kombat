@@ -16,14 +16,14 @@ public class ThirdIteration {
 	@Test
 	public void test2() {
 		Character missFortune = new MeleeFighter(0, 0);
-		assertEquals(missFortune.getAttackMaxRange(), 2.0, 0);
+		assertEquals(2.0, missFortune.getAttackMaxRange(), 0);
 
 	}
 
 	@Test
 	public void test3() {
 		Character missFortune = new RangedFighter(0, 0);
-		assertEquals(missFortune.getAttackMaxRange(), 20.0, 0);
+		assertEquals(20.0, missFortune.getAttackMaxRange(), 0);
 
 	}
 
@@ -33,7 +33,7 @@ public class ThirdIteration {
 		Character nunu = new MeleeFighter(19, 0);
 		missFortune.dealDamages(nunu, 100);
 		nunu.dealDamages(missFortune, 200);
-		assertEquals(missFortune.getHealth(), 1000, 0);
-		assertEquals(nunu.getHealth(), 900, 0);
+		assertEquals(1000, missFortune.getHealth(), 0);
+		assertEquals(900, nunu.getHealth(), 0);
 	}
 }

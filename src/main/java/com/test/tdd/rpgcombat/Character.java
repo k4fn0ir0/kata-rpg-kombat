@@ -3,6 +3,7 @@ package com.test.tdd.rpgcombat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class Character {
 	public static final int DAMAGE_THRESHOLD = 5;
@@ -44,7 +45,7 @@ public abstract class Character {
 	}
 
 	public void dealDamages(Character target, int damage) {
-		if (!this.equals(target) && this.isInAttackRange(target)) {
+		if (!this.equals(target) && this.isInAttackRange(target) && !this.isAnAlly(target)) {
 			int levelDiff = target.getLevel() - this.getLevel();
 			if (levelDiff <= -DAMAGE_THRESHOLD)
 				target.subtractDamage(damage + damage / 2);
@@ -60,7 +61,7 @@ public abstract class Character {
 	}
 
 	public void heal(Character target, int heal) {
-		if (this.equals(target))
+		if (this.equals(target) || this.isAnAlly(target))
 			target.addHeal(heal);
 	}
 
@@ -94,5 +95,11 @@ public abstract class Character {
 	public void leaveFaction(Faction faction) {
 		this.factions.remove(faction);
 		faction.removeAllies(new ArrayList<Character>(Arrays.asList(this)));
+	}
+
+	public boolean isAnAlly(Character target) {
+		List<Character> allies = this.getFactions().stream().flatMap(faction -> faction.getAllies().stream())
+				.collect(Collectors.toList());
+		return allies.contains(target);
 	}
 }
