@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class Character {
-	public static final int DAMAGE_THRESHOLD = 5;
-	public static final int MAX_HEALTH = 1000;
+	private static final int DAMAGE_THRESHOLD = 5;
+	private static final int MAX_HEALTH = 1000;
 
 	private double health;
 	private int level;

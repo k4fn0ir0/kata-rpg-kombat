@@ -7,11 +7,12 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class ThirdIteration {
-	@Test
-	public void test1() {
-		Character missFortune = new MeleeFighter(0, 0);
-		assertThat(missFortune.getAttackMaxRange(), is(instanceOf(double.class)));
-	}
+//	@Test
+//	//ridondante
+//	public void test1() {
+//		Character missFortune = new MeleeFighter(0, 0);
+//		assertThat(missFortune.getAttackMaxRange(), is(instanceOf(double.class)));
+//	}
 
 	@Test
 	public void test2() {
@@ -31,9 +32,11 @@ public class ThirdIteration {
 	public void test4() {
 		Character missFortune = new RangedFighter(0, 0);
 		Character nunu = new MeleeFighter(19, 0);
+		
 		missFortune.dealDamages(nunu, 100);
+		assertEquals(900, nunu.getHealth(), 0);
+		
 		nunu.dealDamages(missFortune, 200);
 		assertEquals(1000, missFortune.getHealth(), 0);
-		assertEquals(900, nunu.getHealth(), 0);
 	}
 }
